@@ -1,8 +1,11 @@
 package com.kidding.core.member;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class MemoryMemberRepository implements MemberRepository{
 
     //실무에선 절대 이렇게 하면 안됨. 동시성 이슈 발생 가능.
