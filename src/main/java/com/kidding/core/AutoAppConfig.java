@@ -11,4 +11,9 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
+    //MemoryMemberRepository와 충돌나도록, 임의로 빈 추가
+//    @Bean(name = "memoryMemberRepository")
+//    MemberRepository memberRepository(){
+//        return new MemoryMemberRepository();
+//    }
 }
