@@ -2,13 +2,13 @@ package com.kidding.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
 
@@ -36,25 +36,38 @@ public class SingletonWithPrototypeTest1 {
         Assertions.assertThat(count2).isEqualTo(1);
     }
 
-    //디폴트가 singleton이므로 굳이 쓰지 않아도 됨.
     @Scope("singleton")
     static class ClientBean{
 
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
         public int logic(){
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
         }
     }
 
+//    @Scope("singleton")
+//    static class ClientBean2{
+//
+//        @Autowired
+//        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+//
+//        public int logic(){
+//            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+//            prototypeBean.addCount();
+//            int count = prototypeBean.getCount();
+//            return count;
+//        }
+//    }
+
     //디폴트가 singleton이므로 굳이 쓰지 않아도 됨.
 //    @Scope("singleton")
 //    @RequiredArgsConstructor
-//    static class ClientBean{
+//    static class ClientBean1{
 //        //생성 시점에 prototypeBean 주입
 //        private final PrototypeBean prototypeBean;
 //
